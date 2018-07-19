@@ -1,22 +1,46 @@
-.main-container {
+.list-contacts {
+    height:100vh;
+    width: 250px;
+    position: absolute;
+    background-color: white;
+    flex-wrap: wrap;
+}
+
+.list-contacts-top {
+    width: 250px;
+    height: 5%;
+    position: fixed;
+    top: 0;
+    border-bottom: 1px solid #d5d8df;
+    display: flex;
+}
+
+.list-contacts-bot {
+    height: auto;
+    position: fixed;
+    padding-top: 50px;
+    padding-left: 60px;
+}
+
+.search-contacts {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    padding: 10px;
+    background-size: 1.2em;
+    font-size: 1.2em;
+    border: 0;
+    outline: none;
 }
 
-.markers-container {
-    height: 900px;
-    width: 20%;
-    background-color: red;
+.contact-list-item {
+    padding-top: 30px;
+    background: white;
     display: flex;
-    flex-wrap: wrap;
-    order: 0;
 }
 
-.map-container {
-    width: 80%;
-    background-color: blue;
-    display: flex;
-    flex-wrap: wrap;
-    order: 1;
+.contact-details p {
+    margin: 0;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
