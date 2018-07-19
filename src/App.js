@@ -1,50 +1,85 @@
 import React, { Component } from 'react';
 import './App.css';
 import MasterComponent from "./MasterComponent";
-import ListMarkers from "./ListMarkers"
+import PropTypes from "prop-types"
 
-const markers = [
+const styles = [
     {
-        "id": 1,
-        "lat": 40.270456,
-        "lng": 22.270454,
-        "name": "Central Park"
-    },
-    {
-        "id": 2,
-        "lat": 40.271635,
-        "lng": 22.501652,
-        "name": "Mikel Coffee"
-    },
-    {
-        "id": 3,
-        "lat": 40.270587,
-        "lng": 22.508347,
-        "name": "Kartell Cafe Bar"
-    },
-    {
-        "id": 4,
-        "lat": 40.26987,
-        "lng": 22.510235,
-        "name": "Clepsydra Mind Games"
-    },
-    {
-        "id": 5,
-        "lat": 40.271962,
-        "lng": 22.505300,
-        "name": "AlDente Bistrorante"
+        featureType: 'water',
+        stylers: [
+            { color: '#19a0d8' }
+        ]
+    },{
+        featureType: 'administrative',
+        elementType: 'labels.text.stroke',
+        stylers: [
+            { color: '#ffffff' },
+            { weight: 6 }
+        ]
+    },{
+        featureType: 'administrative',
+        elementType: 'labels.text.fill',
+        stylers: [
+            { color: '#e85113' }
+        ]
+    },{
+        featureType: 'road.highway',
+        elementType: 'geometry.stroke',
+        stylers: [
+            { color: '#efe9e4' },
+            { lightness: -40 }
+        ]
+    },{
+        featureType: 'transit.station',
+        stylers: [
+            { weight: 9 },
+            { hue: '#e85113' }
+        ]
+    },{
+        featureType: 'road.highway',
+        elementType: 'labels.icon',
+        stylers: [
+            { visibility: 'off' }
+        ]
+    },{
+        featureType: 'water',
+        elementType: 'labels.text.stroke',
+        stylers: [
+            { lightness: 100 }
+        ]
+    },{
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [
+            { lightness: -100 }
+        ]
+    },{
+        featureType: 'poi',
+        elementType: 'geometry',
+        stylers: [
+            { visibility: 'on' },
+            { color: '#f0e4d3' }
+        ]
+    },{
+        featureType: 'road.highway',
+        elementType: 'geometry.fill',
+        stylers: [
+            { color: '#efe9e4' },
+            { lightness: -25 }
+        ]
     }
 ];
 
 class App extends Component {
 
-    render() {
-        return (
-            <div className="main-container">
-                <MasterComponent/>
-                <ListMarkers markers = { markers }/>
-            </div>
+    static propTypes = {
+        styles: PropTypes.array
+    };
 
+    render() {
+
+        return (
+            <MasterComponent styles = {styles}/>
         );
     }
 }

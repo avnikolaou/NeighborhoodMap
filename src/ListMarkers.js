@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import escapeRegExp from "escape-string-regexp"
 import sortBy from "sort-by"
+import "./App.css"
 
 class ListMarkers extends Component {
 
@@ -10,10 +11,6 @@ class ListMarkers extends Component {
 
     updateQuery = (query) => {
         this.setState({ query: query.trim() })
-    };
-
-    clearQuery = () => {
-        this.setState({ query: "" })
     };
 
     render() {
@@ -32,10 +29,10 @@ class ListMarkers extends Component {
         showingMarkers.sort(sortBy("name"));
 
         return (
-            <div className = "list-contacts">
-                <div className = "list-contacts-top">
+            <div className = "list-markers">
+                <div className = "list-markers-top">
                     <input
-                        className = "search-contacts"
+                        className = "search-markers"
                         type = "text"
                         placeholder = "Search a place of interest"
                         value = {query}
@@ -43,10 +40,11 @@ class ListMarkers extends Component {
                     />
 
                 </div>
-                <div className = "list-contacts-bot">
+                <div className = "list-markers-bot">
+
                     {showingMarkers.map((marker) => (
-                        <div key = {marker.id} className = "contact-list-item">
-                            <div className = "contact-details">
+                        <div key = {marker.id} className = "marker-list-item">
+                            <div className = "marker-details">
                                 <p>{marker.name}</p>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-.list-contacts {
+.list-markers {
     height:100vh;
     width: 250px;
     position: absolute;
@@ -6,7 +6,7 @@
     flex-wrap: wrap;
 }
 
-.list-contacts-top {
+.list-markers-top {
     width: 250px;
     height: 5%;
     position: fixed;
@@ -15,29 +15,27 @@
     display: flex;
 }
 
-.list-contacts-bot {
+.list-markers-bot {
     height: auto;
     position: fixed;
     padding-top: 50px;
-    padding-left: 60px;
+    padding-left: 50px;
 }
 
-.search-contacts {
+.search-markers {
     width: 100%;
     padding: 10px;
-    background-size: 1.2em;
     font-size: 1.2em;
     border: 0;
-    outline: none;
 }
 
-.contact-list-item {
+.marker-list-item {
     padding-top: 30px;
     background: white;
     display: flex;
 }
 
-.contact-details p {
+.marker-details p {
     margin: 0;
     min-width: 0;
     white-space: nowrap;
