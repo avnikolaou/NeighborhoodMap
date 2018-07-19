@@ -74,7 +74,8 @@ const styles = [
 class ListMarkers extends Component {
 
     updateQuery = (query) => {
-        this.setState({ query: query.trim() })
+        this.setState({ query: query.trim() });
+        this.foursquareSearch(query)
     };
 
     state = {
@@ -111,8 +112,30 @@ class ListMarkers extends Component {
             }
         ],
         showingMarkers: [],
-        query: ""
+        query: "",
+        testingapi: []
     };
+
+    foursquareSearch = (query) => {
+
+
+        const cid = "NRXHVBL5PSNLQAABA3AH5U2H2335E01HNKCLDP0TKJ3MFU3R";
+        const csecret = "UTUG2HSWFYMZSXFMUL241ET3NBAJCQ1JISWR0EXHWNWONWGP";
+        let lat = 40.271251;
+        let long = 22.506292;
+
+
+        fetch(`https://api.foursquare.com/v2/venues/explore?ll=${lat},${long}&radius=1000&venuePhotos=1&query=${query}&client_id=${cid}&client_secret=${csecret}&v=20180323`)
+            .then( (response) => {
+                return response.json()
+            }).then((json) => {
+                this.setState({
+                    testingapi: json.response.groups["0"].items
+                })
+            });
+        console.log(this.state.testingapi);
+    };
+
 
     render() {
 
