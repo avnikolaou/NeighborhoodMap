@@ -140,7 +140,7 @@ class ListMarkers extends Component {
 
         if (query) {
             const match = new RegExp(escapeRegExp(query), "i");
-            showingMarkers = testingapi.filter((marker) => match.test(marker.name))
+            showingMarkers = testingapi.filter((marker) => match.test(marker.venue.name))
         } else {
             showingMarkers = testingapi;
 
@@ -163,7 +163,6 @@ class ListMarkers extends Component {
                         }}
                         zoom = {16}
                         styles = {styles}
-                        onLoad = {this.foursquareSearch}
                     >
                         {showingMarkers.map((mark) =>
                             <Marker
