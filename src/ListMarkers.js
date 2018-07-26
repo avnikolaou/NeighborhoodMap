@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import escapeRegExp from "escape-string-regexp"
-import sortBy from "sort-by"
 import "./App.css"
-import { Map , GoogleApiWrapper ,Marker } from "google-maps-react"
+import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react"
 
 const styles = [
     {
@@ -81,10 +80,11 @@ class ListMarkers extends Component {
     state = {
         showingMarkers: [],
         query: "",
-        testingapi: []
+        testingapi: [],
+        isOpen: true
     };
 
-    componentWillMount() {
+    componentDidMount() {
         this.foursquareSearch();
     };
 
@@ -100,6 +100,10 @@ class ListMarkers extends Component {
             });
     };
 
+    openInfo = () => {
+
+    };
+
     render() {
 
         let { showingMarkers} = this.props;
@@ -112,13 +116,31 @@ class ListMarkers extends Component {
             showingMarkers = testingapi;
 
             console.log("ShowingMarkers", showingMarkers);
-            console.log("Api markers", this.state.testingapi);
+            console.log("Api markers", testingapi);
         }
-
-        showingMarkers.sort(sortBy("name"));
 
         return (
             <div className="main-container">
+                <div className = "list-markers">
+                    <input
+                        className = "search-markers"
+                        type = "text"
+                        placeholder = "Search a place of interest"
+                        value = {query}
+                        onChange = {(event) => this.updateQuery(event.target.value)}
+                    />
+                    <ul className = "list-markers-bot">
+                        {showingMarkers.map((mark) => (
+                            <div key = {mark.venue.id} className = "marker-list-item">
+                                <div className = "marker-details">
+                                    <p>{mark.venue.name}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </ul>
+
+                </div>
+
                 <div className="map-container">
                     <Map
                         google = { this.props.google }
@@ -135,32 +157,21 @@ class ListMarkers extends Component {
                                 key = { mark.venue.id }
                                 name = { mark.venue.name }
                                 position = {{ lat: mark.venue.location.lat, lng: mark.venue.location.lng }}
-                            />
+                                animation = { window.google.maps.Animation.DROP}
+                                onClick = { this.openInfo }
+                            >
+                                {this.state.isOpen &&
+                                <InfoWindow
+                                    position = {{ lat: mark.venue.location.lat, lng: mark.venue.location.lng }}
+                                >
+                                    <p>jdiajdisjdoiajsoidjaosijdoiasjdoiajsdoiashdoiashd</p>
+                                </InfoWindow>
+                                }
+                            </Marker>
                         )}
                     </Map>
                 </div>
-                <div className = "list-markers">
-                    <div className = "list-markers-top">
-                        <input
-                            className = "search-markers"
-                            type = "text"
-                            placeholder = "Search a place of interest"
-                            value = {query}
-                            onChange = {(event) => this.updateQuery(event.target.value)}
-                        />
-                    </div>
-                    <div className = "list-markers-bot">
 
-                        {showingMarkers.map((mark) => (
-                            <div key = {mark.venue.id} className = "marker-list-item">
-                                <div className = "marker-details">
-                                    <p>{mark.venue.name}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                </div>
             </div>
         )
     }

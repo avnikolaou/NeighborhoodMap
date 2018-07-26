@@ -7,7 +7,11 @@ class App extends Component {
     render() {
 
         return (
-            <ListMarkers/>
+            <div>
+                <h1 className="header"> My Neighborhood Map</h1>
+                <ListMarkers/>
+            </div>
+
         );
     }
 }

@@ -1,38 +1,27 @@
-.list-markers {
-    height:100vh;
-    width: 250px;
-    position: absolute;
-    background-color: white;
+.main-container {
+    display: flex;
     flex-wrap: wrap;
 }
 
-.list-markers-top {
-    width: 250px;
-    height: 5%;
-    position: fixed;
-    top: 0;
-    border-bottom: 1px solid #d5d8df;
-    display: flex;
+.header {
+    margin: 0;
+    text-align: center;
+    padding: 0.5cm;
 }
 
-.list-markers-bot {
-    height: auto;
-    position: fixed;
-    padding-top: 50px;
-    padding-left: 50px;
+.list-markers {
+    height:100vh;
+    width: 20%;
 }
 
-.search-markers {
-    width: 100%;
-    padding: 10px;
-    font-size: 1.2em;
-    border: 0;
+.map-container {
+    width: 80%;
+    height: 100vh;
+    margin: 0;
 }
 
 .marker-list-item {
-    padding-top: 30px;
-    background: white;
-    display: flex;
+    padding-top: 12px;
 }
 
 .marker-details p {
@@ -41,4 +30,11 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.infowindow-div {
+    width: 300px;
+    height: 300px;
+    background-color: pink;
+    position: absolute;
 }
