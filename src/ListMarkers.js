@@ -116,12 +116,12 @@ class ListMarkers extends Component {
         testingapi: []
     };
 
-    componentDidMount() {
+    componentWillMount() {
         this.foursquareSearch();
     };
 
     foursquareSearch = () => {
-        
+
         fetch(`https://api.foursquare.com/v2/venues/explore?ll=40.271251,22.506292&radius=1000&venuePhotos=1&query=cafe&client_id=NRXHVBL5PSNLQAABA3AH5U2H2335E01HNKCLDP0TKJ3MFU3R&client_secret=UTUG2HSWFYMZSXFMUL241ET3NBAJCQ1JISWR0EXHWNWONWGP&v=20180323`)
             .then( (response) => {
                 return response.json()
@@ -130,23 +130,23 @@ class ListMarkers extends Component {
                     testingapi: json.response.groups["0"].items
                 })
             });
-        console.log(this.state.testingapi);
     };
 
 
     render() {
 
         let { showingMarkers} = this.props;
-        const { query, markers, } = this.state;
+        const { query, markers, testingapi } = this.state;
 
         if (query) {
             const match = new RegExp(escapeRegExp(query), "i");
-            showingMarkers = markers.filter((marker) => match.test(marker.name))
+            showingMarkers = testingapi.filter((marker) => match.test(marker.name))
         } else {
-            showingMarkers = markers;
+            showingMarkers = testingapi;
 
             console.log("Markers", markers);
-            console.log("ShowingMarkers", showingMarkers)
+            console.log("ShowingMarkers", showingMarkers);
+            console.log("Api markers", this.state.testingapi);
         }
 
         showingMarkers.sort(sortBy("name"));
@@ -167,9 +167,9 @@ class ListMarkers extends Component {
                     >
                         {showingMarkers.map((mark) =>
                             <Marker
-                                key = { mark.id }
-                                name = { mark.name }
-                                position = {{ lat: mark.lat, lng: mark.lng }}
+                                key = { mark.venue.id }
+                                name = { mark.venue.name }
+                                position = {{ lat: mark.venue.location.lat, lng: mark.venue.location.lng }}
                             />
                         )}
                     </Map>
@@ -186,10 +186,10 @@ class ListMarkers extends Component {
                     </div>
                     <div className = "list-markers-bot">
 
-                        {showingMarkers.map((marker) => (
-                            <div key = {marker.id} className = "marker-list-item">
+                        {showingMarkers.map((mark) => (
+                            <div key = {mark.venue.id} className = "marker-list-item">
                                 <div className = "marker-details">
-                                    <p>{marker.name}</p>
+                                    <p>{mark.venue.name}</p>
                                 </div>
                             </div>
                         ))}
