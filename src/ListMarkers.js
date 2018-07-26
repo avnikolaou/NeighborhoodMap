@@ -116,16 +116,13 @@ class ListMarkers extends Component {
         testingapi: []
     };
 
-    foursquareSearch = (query) => {
+    componentDidMount() {
+        this.foursquareSearch();
+    };
 
-
-        const cid = "NRXHVBL5PSNLQAABA3AH5U2H2335E01HNKCLDP0TKJ3MFU3R";
-        const csecret = "UTUG2HSWFYMZSXFMUL241ET3NBAJCQ1JISWR0EXHWNWONWGP";
-        let lat = 40.271251;
-        let long = 22.506292;
-
-
-        fetch(`https://api.foursquare.com/v2/venues/explore?ll=${lat},${long}&radius=1000&venuePhotos=1&query=${query}&client_id=${cid}&client_secret=${csecret}&v=20180323`)
+    foursquareSearch = () => {
+        
+        fetch(`https://api.foursquare.com/v2/venues/explore?ll=40.271251,22.506292&radius=1000&venuePhotos=1&query=cafe&client_id=NRXHVBL5PSNLQAABA3AH5U2H2335E01HNKCLDP0TKJ3MFU3R&client_secret=UTUG2HSWFYMZSXFMUL241ET3NBAJCQ1JISWR0EXHWNWONWGP&v=20180323`)
             .then( (response) => {
                 return response.json()
             }).then((json) => {
@@ -160,12 +157,13 @@ class ListMarkers extends Component {
                     <Map
                         google = { this.props.google }
                         style = {{ width: '100%', height: '100%', position: 'relative' }}
-                        initialCenter={{
+                        initialCenter= {{
                             lat: 40.270508,
                             lng: 22.503172
                         }}
-                        zoom={16}
+                        zoom = {16}
                         styles = {styles}
+                        onLoad = {this.foursquareSearch}
                     >
                         {showingMarkers.map((mark) =>
                             <Marker
