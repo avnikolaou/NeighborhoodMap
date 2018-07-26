@@ -79,38 +79,6 @@ class ListMarkers extends Component {
     };
 
     state = {
-        markers: [
-            {
-                "id": 1,
-                "lat": 40.271111,
-                "lng": 22.499646,
-                "name": "Central Park"
-            },
-            {
-                "id": 2,
-                "lat": 40.271635,
-                "lng": 22.501652,
-                "name": "Mikel Coffee"
-            },
-            {
-                "id": 3,
-                "lat": 40.270587,
-                "lng": 22.508347,
-                "name": "Kartell Cafe Bar"
-            },
-            {
-                "id": 4,
-                "lat": 40.26987,
-                "lng": 22.510235,
-                "name": "Clepsydra Mind Games"
-            },
-            {
-                "id": 5,
-                "lat": 40.271962,
-                "lng": 22.505300,
-                "name": "AlDente Bistrorante"
-            }
-        ],
         showingMarkers: [],
         query: "",
         testingapi: []
@@ -132,11 +100,10 @@ class ListMarkers extends Component {
             });
     };
 
-
     render() {
 
         let { showingMarkers} = this.props;
-        const { query, markers, testingapi } = this.state;
+        const { query, testingapi } = this.state;
 
         if (query) {
             const match = new RegExp(escapeRegExp(query), "i");
@@ -144,7 +111,6 @@ class ListMarkers extends Component {
         } else {
             showingMarkers = testingapi;
 
-            console.log("Markers", markers);
             console.log("ShowingMarkers", showingMarkers);
             console.log("Api markers", this.state.testingapi);
         }
