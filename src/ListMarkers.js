@@ -74,7 +74,6 @@ class ListMarkers extends Component {
 
     updateQuery = (query) => {
         this.setState({ query: query.trim() });
-        this.foursquareSearch(query)
     };
 
     state = {
@@ -90,7 +89,7 @@ class ListMarkers extends Component {
 
     foursquareSearch = () => {
 
-        fetch(`https://api.foursquare.com/v2/venues/explore?ll=40.271251,22.506292&radius=1000&venuePhotos=1&query=cafe&client_id=NRXHVBL5PSNLQAABA3AH5U2H2335E01HNKCLDP0TKJ3MFU3R&client_secret=UTUG2HSWFYMZSXFMUL241ET3NBAJCQ1JISWR0EXHWNWONWGP&v=20180323`)
+        fetch(`https://api.foursquare.com/v2/venues/explore?ll=40.271251,22.506292&radius=300&venuePhotos=1&query=cafe&client_id=NRXHVBL5PSNLQAABA3AH5U2H2335E01HNKCLDP0TKJ3MFU3R&client_secret=UTUG2HSWFYMZSXFMUL241ET3NBAJCQ1JISWR0EXHWNWONWGP&v=20180323`)
             .then( (response) => {
                 return response.json()
             }).then((json) => {
@@ -144,7 +143,6 @@ class ListMarkers extends Component {
                 <div className="map-container">
                     <Map
                         google = { this.props.google }
-                        style = {{ width: '100%', height: '100%', position: 'relative' }}
                         initialCenter= {{
                             lat: 40.270508,
                             lng: 22.503172
@@ -160,13 +158,16 @@ class ListMarkers extends Component {
                                 animation = { window.google.maps.Animation.DROP}
                                 onClick = { this.openInfo }
                             >
-                                {this.state.isOpen &&
                                 <InfoWindow
                                     position = {{ lat: mark.venue.location.lat, lng: mark.venue.location.lng }}
+                                    options = {{pixelOffset: new this.props.google.maps.Size(0,-30)}}
                                 >
-                                    <p>jdiajdisjdoiajsoidjaosijdoiasjdoiajsdoiashdoiashd</p>
+                                    <div>
+                                        ASDASDASDASDASDSADSDASDQWDASDWDASD
+                                        ASDASDASDASDASDASDASDASDASDASDASDAD
+                                        ASDASDASDASDASDASDASDASDADSDASDASDAS
+                                    </div>
                                 </InfoWindow>
-                                }
                             </Marker>
                         )}
                     </Map>
@@ -180,3 +181,7 @@ class ListMarkers extends Component {
 export default GoogleApiWrapper ({
     apiKey: "AIzaSyCzL24aG9TbvoXQPeay7JKptY_mB4bx-fg"
 })(ListMarkers)
+
+/*
+
+ */
