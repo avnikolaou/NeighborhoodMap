@@ -80,7 +80,7 @@ const styles = [
 class ListMarkers extends Component {
 
     updateQuery = (query) => {
-        this.setState({ query: query.trim() });
+        this.setState({query: query.trim()});
     };
 
     state = {
@@ -115,6 +115,10 @@ class ListMarkers extends Component {
         });
         console.log("this is the clicked mark", mark);
         console.log("this is the marks props",  prop)
+    };
+
+    infoWindowClosed = () => {
+        console.log("InfoWindow closed");
     };
 
     render() {
@@ -153,29 +157,27 @@ class ListMarkers extends Component {
 
                 <div className="map-container">
                     <Map
-                        google = { this.props.google }
-                        initialCenter= {{
-                            lat: 40.270508,
-                            lng: 22.503172
-                        }}
+                        google = {this.props.google}
+                        initialCenter= {{lat: 40.270508, lng: 22.503172}}
                         zoom = {17}
                         styles = {styles}
                     >
                         {showingMarkers.map((mark) =>
                             <Marker
-                                key = { mark.venue.id }
-                                name = { mark.venue.name }
-                                position = {{ lat: mark.venue.location.lat, lng: mark.venue.location.lng }}
-                                animation = { window.google.maps.Animation.DROP}
-                                onClick = { this.openInfoWindow }
+                                key = {mark.venue.id}
+                                name = {mark.venue.name}
+                                position = {{lat: mark.venue.location.lat, lng: mark.venue.location.lng}}
+                                animation = {window.google.maps.Animation.DROP}
+                                onClick = {this.openInfoWindow}
                             />
                         )}
 
                         <InfoWindow
                             marker = {this.state.clickedMarkProps}
                             visible = {this.state.isOpen}
-                            //position = {{ lat: mark.venue.location.lat, lng: mark.venue.location.lng }}
+                            //position = {{lat: mark.venue.location.lat, lng: mark.venue.location.lng}}
                             options = {{pixelOffset: new this.props.google.maps.Size(0,-10)}}
+                            onCloseClick = {this.infoWindowClosed}
                         >
                             <div className="infowindow-div">
                                 <h2>
