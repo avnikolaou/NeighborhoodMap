@@ -121,6 +121,10 @@ class ListMarkers extends Component {
         console.log("InfoWindow closed");
     };
 
+    populateInfoWindow = (mark) => {
+        console.log("Data form the populateInfoWindow method", mark);
+    };
+
     render() {
 
         let { showingMarkers} = this.props;
@@ -178,11 +182,10 @@ class ListMarkers extends Component {
                             //position = {{lat: mark.venue.location.lat, lng: mark.venue.location.lng}}
                             options = {{pixelOffset: new this.props.google.maps.Size(0,-10)}}
                             onCloseClick = {this.infoWindowClosed}
+                            onClick = {this.populateInfoWindow(this.state.clickedMark)}
                         >
-                            <div className="infowindow-div">
-                                <h2>
-                                    {this.state.clickedMarkProps.name}
-                                </h2>
+                            <div id="infoWindow">
+
                             </div>
                         </InfoWindow>
                     </Map>
