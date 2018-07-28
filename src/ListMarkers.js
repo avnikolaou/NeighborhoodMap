@@ -23,6 +23,13 @@ const styles = [
             { color: '#e85113' }
         ]
     },{
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },{
         featureType: 'road.highway',
         elementType: 'geometry.stroke',
         stylers: [
@@ -90,8 +97,7 @@ class ListMarkers extends Component {
     };
 
     foursquareSearch = () => {
-
-        fetch(`https://api.foursquare.com/v2/venues/explore?ll=40.271251,22.506292&radius=300&venuePhotos=1&query=cafe&client_id=NRXHVBL5PSNLQAABA3AH5U2H2335E01HNKCLDP0TKJ3MFU3R&client_secret=UTUG2HSWFYMZSXFMUL241ET3NBAJCQ1JISWR0EXHWNWONWGP&v=20180323`)
+        fetch(`https://api.foursquare.com/v2/venues/explore?ll=40.271251,22.506292&radius=250&venuePhotos=1&query=cafe&client_id=NRXHVBL5PSNLQAABA3AH5U2H2335E01HNKCLDP0TKJ3MFU3R&client_secret=UTUG2HSWFYMZSXFMUL241ET3NBAJCQ1JISWR0EXHWNWONWGP&v=20180323`)
             .then( (response) => {
                 return response.json()
             }).then((json) => {
@@ -129,7 +135,7 @@ class ListMarkers extends Component {
                     <input
                         className = "search-markers"
                         type = "text"
-                        placeholder = "Search a place of interest"
+                        placeholder = "Search for a specific place"
                         value = {query}
                         onChange = {(event) => this.updateQuery(event.target.value)}
                     />
@@ -152,7 +158,7 @@ class ListMarkers extends Component {
                             lat: 40.270508,
                             lng: 22.503172
                         }}
-                        zoom = {16}
+                        zoom = {17}
                         styles = {styles}
                     >
                         {showingMarkers.map((mark) =>
@@ -170,7 +176,6 @@ class ListMarkers extends Component {
                             visible = {this.state.isOpen}
                             //position = {{ lat: mark.venue.location.lat, lng: mark.venue.location.lng }}
                             options = {{pixelOffset: new this.props.google.maps.Size(0,-10)}}
-
                         >
                             <div className="infowindow-div">
                                 <h2>
