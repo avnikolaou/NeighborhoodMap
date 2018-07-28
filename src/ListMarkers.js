@@ -80,7 +80,8 @@ class ListMarkers extends Component {
         showingMarkers: [],
         query: "",
         testingapi: [],
-        isOpen: true
+        isOpen: false,
+        clickedMark: {}
     };
 
     componentDidMount() {
@@ -99,8 +100,12 @@ class ListMarkers extends Component {
             });
     };
 
-    openInfo = () => {
-
+    openInfoWindow = (clickedMark) => {
+        this.setState({
+            clickedMark: clickedMark,
+            isOpen: true
+        });
+        console.log("this is the clicked mark",clickedMark)
     };
 
     render() {
@@ -156,20 +161,19 @@ class ListMarkers extends Component {
                                 name = { mark.venue.name }
                                 position = {{ lat: mark.venue.location.lat, lng: mark.venue.location.lng }}
                                 animation = { window.google.maps.Animation.DROP}
-                                onClick = { this.openInfo }
-                            >
-                                <InfoWindow
-                                    position = {{ lat: mark.venue.location.lat, lng: mark.venue.location.lng }}
-                                    options = {{pixelOffset: new this.props.google.maps.Size(0,-30)}}
-                                >
-                                    <div>
-                                        ASDASDASDASDASDSADSDASDQWDASDWDASD
-                                        ASDASDASDASDASDASDASDASDASDASDASDAD
-                                        ASDASDASDASDASDASDASDASDADSDASDASDAS
-                                    </div>
-                                </InfoWindow>
-                            </Marker>
+                                onClick = { this.openInfoWindow }
+                            />
                         )}
+
+                        <InfoWindow
+                            marker = {this.state.clickedMark}
+                        >
+                            <div className="infowindow-div">
+                                <h2>
+                                    THIS IS SOME RANDOM TEXT!!!
+                                </h2>
+                            </div>
+                        </InfoWindow>
                     </Map>
                 </div>
 
