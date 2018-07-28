@@ -81,7 +81,8 @@ class ListMarkers extends Component {
         query: "",
         testingapi: [],
         isOpen: false,
-        clickedMark: {}
+        clickedMark: {},
+        clickedMarkProps : {}
     };
 
     componentDidMount() {
@@ -100,12 +101,14 @@ class ListMarkers extends Component {
             });
     };
 
-    openInfoWindow = (clickedMark) => {
+    openInfoWindow = (mark, prop) => {
         this.setState({
-            clickedMark: clickedMark,
+            clickedMark: mark,
+            clickedMarkProps: prop,
             isOpen: true
         });
-        console.log("this is the clicked mark",clickedMark)
+        console.log("this is the clicked mark", mark);
+        console.log("this is the marks props",  prop)
     };
 
     render() {
@@ -118,9 +121,6 @@ class ListMarkers extends Component {
             showingMarkers = testingapi.filter((marker) => match.test(marker.venue.name))
         } else {
             showingMarkers = testingapi;
-
-            console.log("ShowingMarkers", showingMarkers);
-            console.log("Api markers", testingapi);
         }
 
         return (
@@ -166,11 +166,15 @@ class ListMarkers extends Component {
                         )}
 
                         <InfoWindow
-                            marker = {this.state.clickedMark}
+                            marker = {this.state.clickedMarkProps}
+                            visible = {this.state.isOpen}
+                            //position = {{ lat: mark.venue.location.lat, lng: mark.venue.location.lng }}
+                            options = {{pixelOffset: new this.props.google.maps.Size(0,-10)}}
+
                         >
                             <div className="infowindow-div">
                                 <h2>
-                                    THIS IS SOME RANDOM TEXT!!!
+                                    {this.state.clickedMarkProps.name}
                                 </h2>
                             </div>
                         </InfoWindow>

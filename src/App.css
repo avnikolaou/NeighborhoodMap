@@ -31,9 +31,3 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-.infowindow-div {
-    background-color: pink;
-    position: absolute;
-    text-align: center;
-}
