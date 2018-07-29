@@ -104,7 +104,9 @@ class ListMarkers extends Component {
                 this.setState({
                     testingapi: json.response.groups["0"].items
                 })
-            });
+            }).catch(() => {
+                alert("Could not fetch Markers!")
+        })
     };
 
     openInfoWindow = (mark, prop) => {
