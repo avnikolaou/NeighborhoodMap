@@ -31,3 +31,16 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.infoWindow-pic {
+    width: 300px;
+    height: 300px;
+}
+
+.infoWindow {
+    align-items: center;
+}
+
+.infoWindow h3 {
+    text-align: center;
+}

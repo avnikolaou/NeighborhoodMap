@@ -88,7 +88,7 @@ const markers = [
         "lat": 40.005145,
         "lng": 22.598205
     },{
-        "name": "Ancient Dion Thatre",
+        "name": "Ancient Dion Theatre",
         "id": 3,
         "lat": 40.172316,
         "lng": 22.491822
@@ -115,36 +115,44 @@ class ListMarkers extends Component {
         showingMarkers: [],
         query: "",
         isOpen: false,
-        clickedMark: {},
-        clickedMarkProps : {}
+        clickedMarkProps : {},
+        pictures: []
     };
 
+    // Request images from flickr (source: https://www.youtube.com/watch?v=RkXotG7YUek), open infoWindow
+
     openInfoWindow = (mark, prop) => {
+        fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=32021ae121adcbcf85420f272a4d6dfd&text=${prop.name}&per_page=3&format=json&nojsoncallback=1`)
+            .then(function(response){
+                return response.json();
+            })
+            .then(function(data){
+                let picArray = data.photos.photo.map((pic) => {
+
+                    let srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'.jpg';
+                    return(
+                        <img alt={prop.name} className="infoWindow-pic" src={srcPath}>
+
+                        </img>
+                    )
+                });
+                this.setState({pictures: picArray});
+            }.bind(this));
+
         this.setState({
-            clickedMark: mark,
             clickedMarkProps: prop,
             isOpen: true
         });
-        console.log("this is the clicked mark", mark);
-        console.log("this is the marks props",  prop)
-    };
-
-    infoWindowClosed = () => {
-        console.log("InfoWindow closed");
-    };
-
-    populateInfoWindow = (mark) => {
-        console.log("Data form the populateInfoWindow method", mark);
     };
 
     render() {
 
         let { showingMarkers } = this.props;
-        const { query, clickedMark } = this.state;
+        const { query, clickedMarkProps } = this.state;
 
         if (query) {
             const match = new RegExp(escapeRegExp(query), "i");
-            showingMarkers = markers.filter((marker) => match.test(marker.venue.name))
+            showingMarkers = markers.filter((marker) => match.test(marker.name))
         } else {
             showingMarkers = markers;
         }
@@ -175,7 +183,7 @@ class ListMarkers extends Component {
                     <Map
                         google = {this.props.google}
                         initialCenter= {{lat: 40.172316, lng: 22.491822}}
-                        zoom = {10}
+                        zoom = {11}
                         styles = {styles}
                     >
                         {showingMarkers.map((mark) =>
@@ -191,13 +199,13 @@ class ListMarkers extends Component {
                         <InfoWindow
                             marker = {this.state.clickedMarkProps}
                             visible = {this.state.isOpen}
-                            //position = {{lat: mark.venue.location.lat, lng: mark.venue.location.lng}}
-                            options = {{pixelOffset: new this.props.google.maps.Size(0,-10)}}
-                            onCloseClick = {this.infoWindowClosed}
-                            onClick = {this.populateInfoWindow(clickedMark)}
+                            options = {{pixelOffset: new this.props.google.maps.Size(0,-5)}}
                         >
-                            <div id="infoWindow">
-
+                            <div className="infoWindow">
+                                <h3>
+                                    {clickedMarkProps.name}
+                                </h3>
+                                {this.state.pictures[0]}
                             </div>
                         </InfoWindow>
                     </Map>
@@ -211,8 +219,3 @@ class ListMarkers extends Component {
 export default GoogleApiWrapper ({
     apiKey: "AIzaSyCzL24aG9TbvoXQPeay7JKptY_mB4bx-fg"
 })(ListMarkers)
-
-/*
-    https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=32021ae121adcbcf85420f272a4d6dfd&
-    text=olympos&per_page=5&format=json&nojsoncallback=1
- */
