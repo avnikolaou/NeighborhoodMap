@@ -122,11 +122,10 @@ class ListMarkers extends Component {
     // Request images from flickr (source: https://www.youtube.com/watch?v=RkXotG7YUek), open infoWindow
 
     openInfoWindow = (mark, prop) => {
-        fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=32021ae121adcbcf85420f272a4d6dfd&text=${prop.name}&per_page=3&format=json&nojsoncallback=1`)
-            .then(function(response){
+        fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=2021ae121adcbcf85420f272a4d6dfd&text=${prop.name}&per_page=3&format=json&nojsoncallback=1`)
+            .then((response) => {
                 return response.json();
-            })
-            .then(function(data){
+            }).then(function(data) {
                 let picArray = data.photos.photo.map((pic) => {
 
                     let srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'.jpg';
@@ -137,7 +136,9 @@ class ListMarkers extends Component {
                     )
                 });
                 this.setState({pictures: picArray});
-            }.bind(this));
+            }.bind(this)).catch((error) => {
+            alert("Could not load image from flickr!!");
+        });
 
         this.setState({
             clickedMarkProps: prop,
@@ -205,7 +206,7 @@ class ListMarkers extends Component {
                                 <h3>
                                     {clickedMarkProps.name}
                                 </h3>
-                                {this.state.pictures[0]}
+                                {this.state.pictures[2]}
                             </div>
                         </InfoWindow>
                     </Map>
