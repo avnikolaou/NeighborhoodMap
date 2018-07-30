@@ -9,15 +9,20 @@
     padding: 10px;
 }
 
-.list-markers {
-    height: 90vh;
-    width: 15%;
-}
-
 .map-container {
     width: 80%;
     margin: 0;
     background-color: black;
+}
+
+.list-markers {
+    height: 90vh;
+    width: 13%;
+    padding-left: 10px;
+}
+
+.list-markers-bot {
+    padding-left: 10px;
 }
 
 .marker-list-item {
@@ -33,6 +38,7 @@
 }
 
 .infoWindow-pic {
+    padding: 5px;
     width: 300px;
     height: 300px;
 }
@@ -43,4 +49,39 @@
 
 .infoWindow h3 {
     text-align: center;
+}
+button {
+    background: transparent;
+    border: 2px solid #0099CC;
+    color: black;
+    padding: 5px;
+    text-align: center;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+input {
+    background: transparent;
+    border: 2px solid #0099CC;
+    color: black;
+    padding: 5px;
+    text-align: center;
+    font-size: 12px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
 }

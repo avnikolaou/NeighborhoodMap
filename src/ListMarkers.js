@@ -111,6 +111,10 @@ class ListMarkers extends Component {
         this.setState({query: query.trim()});
     };
 
+    clearQuery  = () => {
+        this.setState({query : ""})
+    };
+
     state = {
         showingMarkers: [],
         query: "",
@@ -122,7 +126,7 @@ class ListMarkers extends Component {
     // Request images from flickr (source: https://www.youtube.com/watch?v=RkXotG7YUek), open infoWindow
 
     openInfoWindow = (mark, prop) => {
-        fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=2021ae121adcbcf85420f272a4d6dfd&text=${prop.name}&per_page=3&format=json&nojsoncallback=1`)
+        fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=32021ae121adcbcf85420f272a4d6dfd&text=${prop.name}&per_page=3&format=json&nojsoncallback=1`)
             .then((response) => {
                 return response.json();
             }).then(function(data) {
@@ -140,10 +144,16 @@ class ListMarkers extends Component {
             alert("Could not load image from flickr!!");
         });
 
-        this.setState({
-            clickedMarkProps: prop,
-            isOpen: true
-        });
+        setTimeout(() => {
+            this.setState({
+                clickedMarkProps: prop,
+                isOpen: true
+            });
+        },500);
+    };
+
+    closeInfoWindow = () => {
+        alert("InfoWindow closed");
     };
 
     render() {
@@ -164,19 +174,31 @@ class ListMarkers extends Component {
                     <input
                         className = "search-markers"
                         type = "text"
-                        placeholder = "Search for a specific place"
+                        placeholder = "Search Marker"
                         value = {query}
                         onChange = {(event) => this.updateQuery(event.target.value)}
                     />
-                    <ul className = "list-markers-bot">
-                        {showingMarkers.map((mark) => (
-                            <div key = {mark.id} className = "marker-list-item">
-                                <div className = "marker-details">
-                                    <p>{mark.name}</p>
-                                </div>
+                    <button onClick={this.clearQuery}>Clear</button>
+                    <div className = "list-markers-bot">
+                        <div className = "marker-list-item">
+                            <div className = "marker-details">
+                                <button onClick={(event) => this.updateQuery("Mount Olympos")}>Mount Olympos</button>
                             </div>
-                        ))}
-                    </ul>
+                            <div className = "marker-details">
+                                <button onClick={(event) => this.updateQuery("Platamon Castle")}>Platamon Castle</button>
+                            </div>
+                            <div className = "marker-details">
+                                <button onClick={(event) => this.updateQuery("Ancient Dion Theatre")}>Ancient Dion Theatre</button>
+                            </div>
+                            <div className = "marker-details">
+                                <button onClick={(event) => this.updateQuery("Municipal Garden Katerini")}>Municipal Garden Katerini</button>
+                            </div>
+                            <div className = "marker-details">
+                                <button onClick={(event) => this.updateQuery("Paralia Katerini")}>Paralia Katerini</button>
+                            </div>
+
+                        </div>
+                    </div>
 
                 </div>
 
@@ -206,6 +228,7 @@ class ListMarkers extends Component {
                                 <h3>
                                     {clickedMarkProps.name}
                                 </h3>
+                                {this.state.pictures[1]}
                                 {this.state.pictures[2]}
                             </div>
                         </InfoWindow>
