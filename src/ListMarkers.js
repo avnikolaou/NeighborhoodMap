@@ -76,6 +76,34 @@ const styles = [
         ]
     }
 ];
+const markers = [
+    {
+        "name": "Mount Olympos",
+        "id": 1,
+        "lat": 40.088413,
+        "lng": 22.358555
+    },{
+        "name": "Platamon Castle",
+        "id": 2,
+        "lat": 40.005145,
+        "lng": 22.598205
+    },{
+        "name": "Ancient Dion Thatre",
+        "id": 3,
+        "lat": 40.172316,
+        "lng": 22.491822
+    },{
+        "name": "Municipal Garden Katerini",
+        "id": 4,
+        "lat": 40.26987,
+        "lng": 22.510235
+    },{
+        "name": "Paralia Katerini",
+        "id": 5,
+        "lat": 40.268008,
+        "lng": 22.596413
+    }
+];
 
 class ListMarkers extends Component {
 
@@ -86,27 +114,9 @@ class ListMarkers extends Component {
     state = {
         showingMarkers: [],
         query: "",
-        testingapi: [],
         isOpen: false,
         clickedMark: {},
         clickedMarkProps : {}
-    };
-
-    componentDidMount() {
-        this.foursquareSearch();
-    };
-
-    foursquareSearch = () => {
-        fetch(`https://api.foursquare.com/v2/venues/explore?ll=40.271251,22.506292&radius=250&venuePhotos=1&query=cafe&client_id=NRXHVBL5PSNLQAABA3AH5U2H2335E01HNKCLDP0TKJ3MFU3R&client_secret=UTUG2HSWFYMZSXFMUL241ET3NBAJCQ1JISWR0EXHWNWONWGP&v=20180323`)
-            .then( (response) => {
-                return response.json()
-            }).then((json) => {
-                this.setState({
-                    testingapi: json.response.groups["0"].items
-                })
-            }).catch(() => {
-                alert("Could not fetch Markers!")
-        })
     };
 
     openInfoWindow = (mark, prop) => {
@@ -129,14 +139,14 @@ class ListMarkers extends Component {
 
     render() {
 
-        let { showingMarkers} = this.props;
-        const { query, testingapi } = this.state;
+        let { showingMarkers } = this.props;
+        const { query, clickedMark } = this.state;
 
         if (query) {
             const match = new RegExp(escapeRegExp(query), "i");
-            showingMarkers = testingapi.filter((marker) => match.test(marker.venue.name))
+            showingMarkers = markers.filter((marker) => match.test(marker.venue.name))
         } else {
-            showingMarkers = testingapi;
+            showingMarkers = markers;
         }
 
         return (
@@ -151,9 +161,9 @@ class ListMarkers extends Component {
                     />
                     <ul className = "list-markers-bot">
                         {showingMarkers.map((mark) => (
-                            <div key = {mark.venue.id} className = "marker-list-item">
+                            <div key = {mark.id} className = "marker-list-item">
                                 <div className = "marker-details">
-                                    <p>{mark.venue.name}</p>
+                                    <p>{mark.name}</p>
                                 </div>
                             </div>
                         ))}
@@ -164,15 +174,15 @@ class ListMarkers extends Component {
                 <div className="map-container">
                     <Map
                         google = {this.props.google}
-                        initialCenter= {{lat: 40.270508, lng: 22.503172}}
-                        zoom = {17}
+                        initialCenter= {{lat: 40.172316, lng: 22.491822}}
+                        zoom = {10}
                         styles = {styles}
                     >
                         {showingMarkers.map((mark) =>
                             <Marker
-                                key = {mark.venue.id}
-                                name = {mark.venue.name}
-                                position = {{lat: mark.venue.location.lat, lng: mark.venue.location.lng}}
+                                key = {mark.id}
+                                name = {mark.name}
+                                position = {{lat: mark.lat, lng: mark.lng}}
                                 animation = {window.google.maps.Animation.DROP}
                                 onClick = {this.openInfoWindow}
                             />
@@ -184,7 +194,7 @@ class ListMarkers extends Component {
                             //position = {{lat: mark.venue.location.lat, lng: mark.venue.location.lng}}
                             options = {{pixelOffset: new this.props.google.maps.Size(0,-10)}}
                             onCloseClick = {this.infoWindowClosed}
-                            onClick = {this.populateInfoWindow(this.state.clickedMark)}
+                            onClick = {this.populateInfoWindow(clickedMark)}
                         >
                             <div id="infoWindow">
 
@@ -203,5 +213,6 @@ export default GoogleApiWrapper ({
 })(ListMarkers)
 
 /*
-
+    https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=32021ae121adcbcf85420f272a4d6dfd&
+    text=olympos&per_page=5&format=json&nojsoncallback=1
  */
