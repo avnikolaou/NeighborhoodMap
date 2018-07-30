@@ -16,7 +16,7 @@ https://github.com/avnikolaou/NeighborhoodMap.git
 2. Go into the application folder
 
 ```
-$ cd MyReads
+$ cd NeighborhoodMap
 ```
 
 3. Install dependencies using `npm` command line tool
