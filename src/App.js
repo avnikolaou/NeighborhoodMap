@@ -8,7 +8,6 @@ class App extends Component {
 
         return (
             <div>
-                <h1 className="header"> My Neighborhood Map</h1>
                 <ListMarkers/>
             </div>
 

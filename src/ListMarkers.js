@@ -157,12 +157,8 @@ class ListMarkers extends Component {
     };
 
     toggleBurger = () => {
-        let x = document.getElementById("myTopnav");
-        if (x.className === "topnav") {
-            x.className += " responsive";
-        } else {
-            x.className = "topnav";
-        }
+        let x = document.getElementById("list-markers");
+
     };
 
     render() {
@@ -178,67 +174,72 @@ class ListMarkers extends Component {
         }
 
         return (
-            <div className="main-container">
-                <nav className="topnav" id="myTopnav">
-                    <a href="javascript: void(0);" className="icon">
+            <div>
+                <header>
+                    <h1 className="header"><a className="icon" onClick={this.toggleBurger}>
                         <div className="container-bar">
                             <div className="bar1"></div>
                             <div className="bar2"></div>
                             <div className="bar3"></div>
                         </div>
-                    </a>
-                    <div className = "list-markers">
-                        <input
-                            className = "search-markers"
-                            type = "text"
-                            placeholder = "Search Marker"
-                            value = {query}
-                            onChange = {(event) => this.updateQuery(event.target.value)}
-                        />
-                        <button onClick={this.clearQuery}>Clear</button>
-                        <div className = "marker-list-item">
-                            <button onClick={(event) => this.updateQuery("Mount Olympos")}>Mount Olympos</button>
-                            <button onClick={(event) => this.updateQuery("Platamon Castle")}>Platamon Castle</button>
-                            <button onClick={(event) => this.updateQuery("Ancient Dion Theatre")}>Ancient Dion Theatre</button>
-                            <button onClick={(event) => this.updateQuery("Municipal Garden Katerini")}>Municipal Garden Katerini</button>
-                            <button onClick={(event) => this.updateQuery("Paralia Katerini")}>Paralia Katerini</button>
+                    </a> My Neighborhood Map</h1>
+
+                </header>
+                <div className="main-container">
+                    <div className="topnav" id="myTopnav">
+                        <div className = "list-markers" id = "list-markers">
+                            <input
+                                className = "search-markers"
+                                type = "text"
+                                placeholder = "Search Marker"
+                                value = {query}
+                                onChange = {(event) => this.updateQuery(event.target.value)}
+                            />
+                            <button onClick={this.clearQuery}>Clear</button>
+                            <div className = "marker-list-item">
+                                <button onClick={(event) => this.updateQuery("Mount Olympos")}>Mount Olympos</button>
+                                <button onClick={(event) => this.updateQuery("Platamon Castle")}>Platamon Castle</button>
+                                <button onClick={(event) => this.updateQuery("Ancient Dion Theatre")}>Ancient Dion Theatre</button>
+                                <button onClick={(event) => this.updateQuery("Municipal Garden Katerini")}>Municipal Garden Katerini</button>
+                                <button onClick={(event) => this.updateQuery("Paralia Katerini")}>Paralia Katerini</button>
+                            </div>
                         </div>
                     </div>
-                </nav>
 
-                <div className="map-container">
-                    <Map
-                        google = {this.props.google}
-                        initialCenter= {{lat: 40.172316, lng: 22.491822}}
-                        zoom = {11}
-                        styles = {styles}
-                    >
-                        {showingMarkers.map((mark) =>
-                            <Marker
-                                key = {mark.id}
-                                name = {mark.name}
-                                position = {{lat: mark.lat, lng: mark.lng}}
-                                animation = {window.google.maps.Animation.DROP}
-                                onClick = {this.openInfoWindow}
-                            />
-                        )}
-
-                        <InfoWindow
-                            marker = {this.state.clickedMarkProps}
-                            visible = {this.state.isOpen}
-                            options = {{pixelOffset: new this.props.google.maps.Size(0,-5)}}
+                    <div className="map-container">
+                        <Map
+                            google = {this.props.google}
+                            initialCenter= {{lat: 40.172316, lng: 22.491822}}
+                            zoom = {11}
+                            styles = {styles}
                         >
-                            <div className="infoWindow">
-                                <h3>
-                                    {clickedMarkProps.name}
-                                </h3>
-                                {this.state.pictures[1]}
-                                {this.state.pictures[2]}
-                            </div>
-                        </InfoWindow>
-                    </Map>
-                </div>
+                            {showingMarkers.map((mark) =>
+                                <Marker
+                                    key = {mark.id}
+                                    name = {mark.name}
+                                    position = {{lat: mark.lat, lng: mark.lng}}
+                                    animation = {window.google.maps.Animation.DROP}
+                                    onClick = {this.openInfoWindow}
+                                />
+                            )}
 
+                            <InfoWindow
+                                marker = {this.state.clickedMarkProps}
+                                visible = {this.state.isOpen}
+                                options = {{pixelOffset: new this.props.google.maps.Size(0,-5)}}
+                            >
+                                <div className="infoWindow">
+                                    <h3>
+                                        {clickedMarkProps.name}
+                                    </h3>
+                                    {this.state.pictures[1]}
+                                    {this.state.pictures[2]}
+                                </div>
+                            </InfoWindow>
+                        </Map>
+                    </div>
+
+                </div>
             </div>
         )
     }
