@@ -121,7 +121,7 @@ const markers = [
         "name": "Elatochori",
         "id": 9,
         "lat": 40.319628,
-        "lng": 22.616238
+        "lng": 22.265867
     }
 ];
 
