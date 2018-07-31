@@ -140,7 +140,7 @@ class ListMarkers extends Component {
                     )
                 });
                 this.setState({pictures: picArray});
-            }.bind(this)).catch((error) => {
+            }.bind(this)).catch(() => {
             alert("Could not load image from flickr!!");
         });
 
@@ -154,6 +154,15 @@ class ListMarkers extends Component {
 
     closeInfoWindow = () => {
         alert("InfoWindow closed");
+    };
+
+    toggleBurger = () => {
+        let x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
     };
 
     render() {
@@ -170,37 +179,32 @@ class ListMarkers extends Component {
 
         return (
             <div className="main-container">
-                <div className = "list-markers">
-                    <input
-                        className = "search-markers"
-                        type = "text"
-                        placeholder = "Search Marker"
-                        value = {query}
-                        onChange = {(event) => this.updateQuery(event.target.value)}
-                    />
-                    <button onClick={this.clearQuery}>Clear</button>
-                    <div className = "list-markers-bot">
+                <nav className="topnav" id="myTopnav">
+                    <a href="javascript: void(0);" className="icon">
+                        <div className="container-bar">
+                            <div className="bar1"></div>
+                            <div className="bar2"></div>
+                            <div className="bar3"></div>
+                        </div>
+                    </a>
+                    <div className = "list-markers">
+                        <input
+                            className = "search-markers"
+                            type = "text"
+                            placeholder = "Search Marker"
+                            value = {query}
+                            onChange = {(event) => this.updateQuery(event.target.value)}
+                        />
+                        <button onClick={this.clearQuery}>Clear</button>
                         <div className = "marker-list-item">
-                            <div className = "marker-details">
-                                <button onClick={(event) => this.updateQuery("Mount Olympos")}>Mount Olympos</button>
-                            </div>
-                            <div className = "marker-details">
-                                <button onClick={(event) => this.updateQuery("Platamon Castle")}>Platamon Castle</button>
-                            </div>
-                            <div className = "marker-details">
-                                <button onClick={(event) => this.updateQuery("Ancient Dion Theatre")}>Ancient Dion Theatre</button>
-                            </div>
-                            <div className = "marker-details">
-                                <button onClick={(event) => this.updateQuery("Municipal Garden Katerini")}>Municipal Garden Katerini</button>
-                            </div>
-                            <div className = "marker-details">
-                                <button onClick={(event) => this.updateQuery("Paralia Katerini")}>Paralia Katerini</button>
-                            </div>
-
+                            <button onClick={(event) => this.updateQuery("Mount Olympos")}>Mount Olympos</button>
+                            <button onClick={(event) => this.updateQuery("Platamon Castle")}>Platamon Castle</button>
+                            <button onClick={(event) => this.updateQuery("Ancient Dion Theatre")}>Ancient Dion Theatre</button>
+                            <button onClick={(event) => this.updateQuery("Municipal Garden Katerini")}>Municipal Garden Katerini</button>
+                            <button onClick={(event) => this.updateQuery("Paralia Katerini")}>Paralia Katerini</button>
                         </div>
                     </div>
-
-                </div>
+                </nav>
 
                 <div className="map-container">
                     <Map
