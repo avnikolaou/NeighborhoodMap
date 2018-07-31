@@ -121,7 +121,7 @@ const markers = [
         "name": "Elatochori",
         "id": 9,
         "lat": 40.319628,
-        "lng": 22.265867
+        "lng": 22.616238
     }
 ];
 
@@ -196,11 +196,17 @@ class ListMarkers extends Component {
         return (
             <div>
                 <header>
-                    <h1 className="header"><a className="icon" onClick={this.toggleBurger}>
+                    <h1 className="header"><a className="icon" onClick={this.toggleBurger} aria-label="Open side panel">
                         <div className="container-bar">
-                            <div className="bar1"></div>
-                            <div className="bar2"></div>
-                            <div className="bar3"></div>
+                            <div className="bar1">
+
+                            </div>
+                            <div className="bar2">
+
+                            </div>
+                            <div className="bar3">
+
+                            </div>
                         </div>
                     </a> Places to visit! </h1>
 
@@ -214,14 +220,24 @@ class ListMarkers extends Component {
                                 placeholder = "Search Marker"
                                 value = {query}
                                 onChange = {(event) => this.updateQuery(event.target.value)}
+                                aria-label="Filter available markers"
                             />
-                            <button onClick={this.clearQuery}>Clear</button>
+                            <button
+                                onClick={this.clearQuery}
+                                aria-label="Clear filter"
+                                >
+                                Clear
+                            </button>
                             <div className = "marker-list-item">
                                 <button onClick={(event) => this.updateQuery("Mount Olympos")}>Mount Olympos</button>
                                 <button onClick={(event) => this.updateQuery("Platamon Castle")}>Platamon Castle</button>
                                 <button onClick={(event) => this.updateQuery("Ancient Dion Theatre")}>Ancient Dion Theatre</button>
                                 <button onClick={(event) => this.updateQuery("Municipal Garden Katerini")}>Municipal Garden Katerini</button>
                                 <button onClick={(event) => this.updateQuery("Paralia Katerini")}>Paralia Katerini</button>
+                                <button onClick={(event) => this.updateQuery("Dionysius Monastery")}>Dionysius Monastery</button>
+                                <button onClick={(event) => this.updateQuery("Orlias Waterfall")}>Orlias Waterfall</button>
+                                <button onClick={(event) => this.updateQuery("Ancient Pydna")}>Ancient Pydna</button>
+                                <button onClick={(event) => this.updateQuery("Elatochori")}>Elatochori</button>
                             </div>
                         </div>
                     </div>
