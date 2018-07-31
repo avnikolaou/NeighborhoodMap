@@ -102,6 +102,26 @@ const markers = [
         "id": 5,
         "lat": 40.268008,
         "lng": 22.596413
+    },{
+        "name": "Dionysius Monastery",
+        "id": 6,
+        "lat": 40.118631,
+        "lng": 22.483314
+    },{
+        "name": "Orlias Waterfall",
+        "id": 7,
+        "lat": 40.149820,
+        "lng": 22.437977
+    },{
+        "name": "Ancient Pydna",
+        "id": 8,
+        "lat": 40.394547,
+        "lng": 22.616238
+    },{
+        "name": "Elatochori",
+        "id": 9,
+        "lat": 40.319628,
+        "lng": 22.265867
     }
 ];
 
@@ -157,8 +177,8 @@ class ListMarkers extends Component {
     };
 
     toggleBurger = () => {
-        let x = document.getElementById("list-markers");
-
+        let element = document.getElementById("list-markers");
+        element.classList.toggle("showElement");
     };
 
     render() {
@@ -182,7 +202,7 @@ class ListMarkers extends Component {
                             <div className="bar2"></div>
                             <div className="bar3"></div>
                         </div>
-                    </a> My Neighborhood Map</h1>
+                    </a> Places to visit! </h1>
 
                 </header>
                 <div className="main-container">
