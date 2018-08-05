@@ -77,6 +77,11 @@ input {
     text-transform: uppercase;
 }
 
+.image-info {
+    color: gray;
+    font-size: 1em;
+}
+
 /* Responsive */
 
 .container-bar {

@@ -270,6 +270,7 @@ class ListMarkers extends Component {
                                     </h3>
                                     {this.state.pictures[1]}
                                     {this.state.pictures[2]}
+                                    <h3 className="image-info">Images are fetched from flickr</h3>
                                 </div>
                             </InfoWindow>
                         </Map>
