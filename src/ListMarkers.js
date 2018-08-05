@@ -165,6 +165,7 @@ class ListMarkers extends Component {
         });
 
         setTimeout(() => {
+            this.updateQuery(mark.name);
             this.setState({
                 clickedMarkProps: prop,
                 isOpen: true
@@ -192,7 +193,7 @@ class ListMarkers extends Component {
     render() {
 
         let { showingMarkers } = this.props;
-        const { query, clickedMarkProps } = this.state;
+        const { query, clickedMarkProps} = this.state;
 
         if (query) {
             const match = new RegExp(escapeRegExp(query), "i");
@@ -237,15 +238,9 @@ class ListMarkers extends Component {
                                 Clear
                             </button>
                             <div className = "marker-list-item">
-                                <button onClick={(event) => this.updateQuery("Mount Olympos")}>Mount Olympos</button>
-                                <button onClick={(event) => this.updateQuery("Platamon Castle")}>Platamon Castle</button>
-                                <button onClick={(event) => this.updateQuery("Ancient Dion Theatre")}>Ancient Dion Theatre</button>
-                                <button onClick={(event) => this.updateQuery("Municipal Garden Katerini")}>Municipal Garden Katerini</button>
-                                <button onClick={(event) => this.updateQuery("Paralia Katerini")}>Paralia Katerini</button>
-                                <button onClick={(event) => this.updateQuery("Dionysius Monastery")}>Dionysius Monastery</button>
-                                <button onClick={(event) => this.updateQuery("Orlias Waterfall")}>Orlias Waterfall</button>
-                                <button onClick={(event) => this.updateQuery("Ancient Pydna")}>Ancient Pydna</button>
-                                <button onClick={(event) => this.updateQuery("Elatochori")}>Elatochori</button>
+                                {showingMarkers.map((mark) => (
+                                    <li key={mark.id} role="button" aria-label="Unique Map Location" onClick={(event) => this.updateQuery(event.target.innerHTML)}>{mark.name}</li>
+                                ))}
                             </div>
                         </div>
                     </div>
