@@ -181,6 +181,14 @@ class ListMarkers extends Component {
         element.classList.toggle("showElement");
     };
 
+    gm_authFailure = () => {
+        alert("Could not load Google Maps!!")
+    };
+
+    componentDidMount() {
+        window.gm_authFailure = this.gm_authFailure;
+    }
+
     render() {
 
         let { showingMarkers } = this.props;
