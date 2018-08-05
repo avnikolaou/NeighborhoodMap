@@ -132,7 +132,10 @@ class ListMarkers extends Component {
     };
 
     clearQuery  = () => {
-        this.setState({query : ""})
+        this.setState({
+            query : "",
+            isOpen: false
+        })
     };
 
     state = {
@@ -164,9 +167,11 @@ class ListMarkers extends Component {
             alert("Could not load image from flickr!!");
         });
 
+        this.updateQuery(mark.name);
+
         setTimeout(() => {
-            this.updateQuery(mark.name);
             this.setState({
+                showingMarkers: mark,
                 clickedMarkProps: prop,
                 isOpen: true
             });
@@ -174,7 +179,10 @@ class ListMarkers extends Component {
     };
 
     closeInfoWindow = () => {
-        alert("InfoWindow closed");
+        this.clearQuery();
+        this.setState({
+            isOpen: false
+        })
     };
 
     toggleBurger = () => {
@@ -188,7 +196,7 @@ class ListMarkers extends Component {
 
     componentDidMount() {
         window.gm_authFailure = this.gm_authFailure;
-    }
+    };
 
     render() {
 
@@ -266,6 +274,7 @@ class ListMarkers extends Component {
                                 marker = {this.state.clickedMarkProps}
                                 visible = {this.state.isOpen}
                                 options = {{pixelOffset: new this.props.google.maps.Size(0,-5)}}
+                                onClose = {this.closeInfoWindow}
                             >
                                 <div className="infoWindow">
                                     <h3>
